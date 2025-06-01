@@ -26,6 +26,18 @@ def adicionar_item(item: str, qtde: int) -> None:
         print(f"(!) O item {item} já está em sua lista de compras.")
         lista_compras[item] += qtde
         
+        # Implementar somente no desafio !!
+        # Se o item já estiver na lista, o usuário decide por somar com a quantidade existente ou atualizar com o novo valor.
+        #escolha = input("Deseja somar a quantidade ou atualizar? (0 -> soma / 1 -> atualizar): ")
+        
+        #if escolha == '0':  # somar
+        #    lista_compras[item] += qtde
+        #    print(f"A quantidade de '{item}' foi somada. Nova quantidade: {lista_compras[item]}.")
+        #elif escolha == '1':  # atualizar
+        #    atualizar_qtde(item, qtde)
+        #else:
+        #    print("(!) Opção inválida. Nenhuma alteração foi feita.")
+        
     else:  # se o item não existe
         lista_compras[item] = qtde
 
@@ -34,6 +46,7 @@ def remover_item(item: str) -> None:
     """
     Remove um item e sua quantidade da lista de compras.
     """
+    # antes de pedir pra remover direto, verificar se a lista está vazia -> não remove nada (nem pergunta), apenas informa
     if item in lista_compras:
         del lista_compras[item]
         print(f"\nO item '{item}' foi removido de sua lista de compras.")
@@ -46,6 +59,7 @@ def atualizar_qtde(item: str, qtde: int) -> None:
     Atualize a quantidade de um item na lista de compras.
     Verificar se chegar em 0 e já remover?
     """
+    # antes de atualizar direto, verificar se a lista está vazia -> não atualizada nada, apenas informa
     if item in lista_compras:
         if qtde <= 0:
             remover_item(item)

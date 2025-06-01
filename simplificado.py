@@ -1,18 +1,7 @@
 """
-Projeto: Lista de compras
-
-Crie um programa para gerenciar uma lista de compras que contenha o nome de cada item e a quantidade desejada. 
-Implemente as seguintes funcionalidades, por meio de um menu de opções para que o usuário interaja com o sistema: 
-adicionar um novo item; 
-remover um item; 
-atualizar quantidade de um item já existente; 
-visualizar toda a lista de compras; 
-sair do programa.
-
-Dicas:
-Utilize um laço de repetição para representar o menu de opções, de modo que este fique ativo até o usuário selecionar a opção “sair”;
-Teste cada função separadamente antes de unificá-la no menu;
-Lembre-se de verificar se um item já existe. Se isso acontecer, basta incrementar ou atualizar sua quantidade.
+PET-Informática
+Capacitação Lógica + Python - Dia 04
+Projeto Prático: Lista de Compras
 """
 
 lista_compras = {} # chave(str) = nome ; valor(int) = qtde
@@ -23,9 +12,8 @@ def adicionar_item(item: str, qtde: int) -> None:
     Se o item já estiver na lista, a quantidade informada será somada à preexistente.
     """
     if item in lista_compras:
-        print(f"(!) O item {item} já está em sua lista de compras.")
+        print("\n(!) O item", item, "já está em sua lista de compras.\nSua quantidade foi somada com a pré-existente.")
         lista_compras[item] += qtde
-        
     else:  # se o item não existe
         lista_compras[item] = qtde
 
@@ -36,42 +24,40 @@ def remover_item(item: str) -> None:
     """
     if item in lista_compras:
         del lista_compras[item]
-        print(f"\nO item '{item}' foi removido de sua lista de compras.")
-    else:
-        print(f"(!) O item '{item}' não está na lista de compras.")
+        print("\nO item", item, "foi removido de sua lista de compras.")
+    else:  # item não encontrado
+        print("\n(!) O item", item, "não está em lista de compras.")
 
 
 def atualizar_qtde(item: str, qtde: int) -> None:
     """
-    Atualize a quantidade de um item na lista de compras.
-    Verificar se chegar em 0 e já remover?
+    Atualiza a quantidade de um item na lista de compras.
     """
     if item in lista_compras:
         if qtde <= 0:
             remover_item(item)
         else: # atualiza com a nova quantidade
             lista_compras[item] = qtde
-            print(f"\nA quantidade do item '{item}' foi atualizada para {lista_compras[item]}.")
+            print("\nA quantidade do item", item, "foi atualizada para", lista_compras[item])
     else:
-        print(f"\n(!) O item '{item}' não está na lista de compras.")
+        print("\n(!) O item", item, "não está em lista de compras.")
 
 
 def visualizar_itens() -> None:
+    """
+    Mostra todos os itens da lista de compras, caso existam.
+    """
     if not lista_compras:
         print("\n(!) A lista de compras está vazia.")
     else:
         print("\n--- Lista de Compras ---")
         for item, qtde in lista_compras.items():
-            print(f"- {item}: {qtde}")
+            print("-", item, ":", qtde)
 
 
 def menu() -> None:
     """
-    adicionar um novo item; 
-    remover um item; 
-    atualizar quantidade de um item já existente; 
-    visualizar toda a lista de compras; 
-    sair do programa.
+    Menu de opções com o qual o usuário interage.
     """
     loop = True
     while loop:
@@ -93,15 +79,15 @@ def menu() -> None:
             item = input("\nNome do item a remover: ")
             remover_item(item)
 
-        elif opcao == "3":  # Atualizar quantidade de um item
+        elif opcao == "3":  # atualizar quantidade de um item
             item = input("\nNome do item a atualizar: ")
             qtde = int(input("Nova quantidade: "))
             atualizar_qtde(item, qtde)
             
-        elif opcao == "4":  # Visualizar toda a lista de compras
+        elif opcao == "4":  # visualizar toda a lista de compras
             visualizar_itens()
 
-        elif opcao == "5":
+        elif opcao == "5":  # sair
             print("\nSaindo do programa...")
             loop = False
 
