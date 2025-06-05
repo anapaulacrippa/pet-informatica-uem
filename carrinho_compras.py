@@ -1,7 +1,7 @@
 """
 PET-Informática
 Capacitação Lógica + Python - Dia 04
-(Desafio) Projeto Prático: Carrinho de Compras
+Projeto Prático: Carrinho de Compras
 """
 
 carrinho_compras = {}   # chave(str) = nome ; valor(int) = qtde
@@ -29,42 +29,31 @@ def remover_item(item: str) -> None:
         print("\n(!) O item", item, "não está em seu carrinho de compras.")
 
 
-def atualizar_qtde() -> None:
+def atualizar_qtde(item: str, qtde: int) -> None:
     """
     Atualiza a quantidade de um item no carrinho de compras.
     Caso a nova quantidade seja menor ou igual a zero, o item deve ser removido.
     """
-    if carrinho_compras:
-        item = input("\nNome do item a atualizar: ")
-        if item in carrinho_compras:
-            qtde = int(input("Nova quantidade: "))
-            if qtde <= 0:
-                remover_item(item)
-            else:   # atualiza com a nova quantidade
-                carrinho_compras[item] = qtde
-                print(f"\nA quantidade do item {item} foi atualizada para {carrinho_compras[item]}.")
-        else:
-            print("\n(!) O item", item, "não está em seu carrinho de compras. Não há nada a atualizar.")
+    if item in carrinho_compras:
+        if qtde <= 0:
+            remover_item(item)
+        else:   # atualiza com a nova quantidade
+            carrinho_compras[item] = qtde
+            print(f"\nA quantidade do item {item} foi atualizada para {carrinho_compras[item]}.")
     else:
-        print("\n(!) O carrinho de compras está vazio. Não há nada a atualizar.")    
+        print("\n(!) O item", item, "não está em seu carrinho de compras.")
 
 
 def visualizar_itens() -> None:
     """
     Mostra todos os itens do carrinho de compras, caso existam.
     """
-    for item, qtde in carrinho_compras.items():
-        print(f"\n- {item} : {qtde}")
-
-
-def total_itens() -> int:
-    """
-    Calcula e mostra a quantidade total de itens no carrinho de compras.
-    """
-    total = 0
-    for qtde in carrinho_compras.values():
-        total = total + qtde
-    print(f"A quantidade total de itens no seu carrinho de compras é {total}.")
+    if not carrinho_compras:
+        print("\n(!) O carrinho de compras está vazio.")
+    else:
+        print("\n--- Carrinho de Compras ---")
+        for item, qtde in carrinho_compras.items():
+            print(f"- {item} : {qtde}")
 
 
 def menu() -> None:
@@ -78,35 +67,28 @@ def menu() -> None:
         print("2. Remover um item")
         print("3. Atualizar quantidade de um item")
         print("4. Visualizar todo o carrinho de compras")
-        print("5. Visualizar quantidade total de itens")
-        print("6. Sair")
+        print("5. Sair")
 
         opcao = input("Escolha uma opção (1-5): ")
 
-        if opcao == "1":  # adicionar um novo item
+        if opcao == "1":   # adicionar um novo item
             item = input("\nNome do item a adicionar: ")
             qtde = int(input("Quantidade a adicionar: "))
             adicionar_item(item, qtde)
             
-        elif opcao == "2":  # remover um item
-            if carrinho_compras:  # verifica se há itens no carrinho
-                item = input("\nNome do item a remover: ")
-                remover_item(item)
-            else:
-                print("\n(!) O carrinho de compras está vazio. Não há nada a remover.")
-        elif opcao == "3":  # atualizar quantidade de um item
-            atualizar_qtde()
+        elif opcao == "2":   # remover um item
+            item = input("\nNome do item a remover: ")
+            remover_item(item)
+
+        elif opcao == "3":   # atualizar quantidade de um item
+            item = input("\nNome do item a atualizar: ")
+            qtde = int(input("Nova quantidade: "))
+            atualizar_qtde(item, qtde)
             
-        elif opcao == "4":  # visualizar todo o carrinho de compras
-            if carrinho_compras:  # verifica se há itens no carrinho
-                visualizar_itens()
-            else:
-                print("\n(!) O carrinho de compras está vazio. Não há nada a visualizar")
+        elif opcao == "4":   # visualizar todo o carrinho de compras
+            visualizar_itens()
 
-        elif opcao == "5":  # visualizar quantidade total de itens
-            total_itens()
-
-        elif opcao == "6":
+        elif opcao == "5":   # sair
             print("\nSaindo do programa...")
             loop = False
 
